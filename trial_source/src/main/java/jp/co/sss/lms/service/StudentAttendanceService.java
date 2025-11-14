@@ -72,6 +72,27 @@ public class StudentAttendanceService {
 
 		return attendanceManagementDtoList;
 	}
+	
+	/**
+	 * 過去未入力チェック
+	 * 過去日に入力されていない勤怠情報があるかチェックする。
+	 * @return true:未入力あり, false:未入力なし
+	 */
+	public boolean isPastDateMissingEntry() {
+		// I. 現在日付の取得とフォーマット (DateUtilを使用して"yyyyMMdd"形式の文字列を取得)
+		String currentDateStr = dateUtil.dateToString(new Date(), "yyyyMMdd");
+		
+		// II. Mapper呼び出しによる未入力件数の取得
+		int missingCount = tStudentAttendanceMapper.countMissingEntry(
+				loginUserDto.getLmsUserId(),  // LMSユーザID
+				Constants.DB_FLG_FALSE,       // 削除フラグ(0)
+				currentDateStr                // 現在日付け（この日付より過去をチェック）
+		);
+		
+		// III. 判定
+		return missingCount > 0;
+	}
+	
 
 	/**
 	 * 出退勤更新前のチェック

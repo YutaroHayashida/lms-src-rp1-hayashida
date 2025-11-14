@@ -86,4 +86,26 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 
+	<select id="countMissingEntry" resultType="int">
+		SELECT
+			COUNT(t2.date)
+		FROM
+			m_course t1
+		INNER JOIN
+			m_section t2
+		ON
+			t1.course_id = t2.course_id
+		LEFT OUTER JOIN
+			t_student_attendance t3
+		ON
+			t3.lms_user_id = #{lmsUserId}
+			AND t3.delete_flg = #{deleteFlg}
+			AND cast(t2.date AS DATE) = cast(t3.training_date AS DATE)
+		WHERE
+			t1.course_id = (SELECT course_id FROM m_course_lms_user WHERE lms_user_id = #{lmsUserId})
+			AND t1.delete_flg = #{deleteFlg}
+			AND cast(t2.date AS DATE) &lt; cast(#{currentDateStr} AS DATE)
+			AND t3.student_attendance_id IS NULL 
+	</select>
+	
 </mapper>
