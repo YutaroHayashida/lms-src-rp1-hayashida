@@ -1,6 +1,7 @@
 package jp.co.sss.lms.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,26 +74,34 @@ public class StudentAttendanceService {
 		return attendanceManagementDtoList;
 	}
 	
-	/**
-	 * 過去未入力チェック
-	 * 過去日に入力されていない勤怠情報があるかチェックする。
-	 * @return true:未入力あり, false:未入力なし
-	 */
-	public boolean isPastDateMissingEntry() {
-		// I. 現在日付の取得とフォーマット (DateUtilを使用して"yyyyMMdd"形式の文字列を取得)
-		String currentDateStr = dateUtil.dateToString(new Date(), "yyyyMMdd");
-		
-		// II. Mapper呼び出しによる未入力件数の取得
-		int missingCount = tStudentAttendanceMapper.countMissingEntry(
-				loginUserDto.getLmsUserId(),  // LMSユーザID
-				Constants.DB_FLG_FALSE,       // 削除フラグ(0)
-				currentDateStr                // 現在日付け（この日付より過去をチェック）
-		);
-		
-		// III. 判定
-		return missingCount > 0;
-	}
-	
+    /**
+     * 現在より過去に未入力があるかをチェック
+     * @param loginUser ログインユーザ情報
+     * @return boolean（true=過去に未入力がある）
+     */
+    public boolean hasPastUnentered(LoginUserDto loginUser) {
+
+        // a. SimpleDateFormatを設定
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // b. 現在日付を取得
+        Date today = new Date();
+        try {
+            today = sdf.parse(sdf.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // 1. 過去日の未入力数を取得
+        Integer count = tStudentAttendanceMapper.countPastDays(
+                loginUser.getLmsUserId(),
+                0,        // delete_flg
+                today     // 今日より過去
+        );
+
+        // 2. 0より大きい場合 true（ダイアログ表示させる）
+        return count > 0;
+    }
 
 	/**
 	 * 出退勤更新前のチェック

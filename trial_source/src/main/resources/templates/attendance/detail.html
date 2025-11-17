@@ -72,6 +72,9 @@
 			</table>
 		</div>
 	</div>
+	
+	 <input type="hidden" id="hasUnenteredPast" th:value="${hasUnenteredPast}" />
+    <script th:src="@{/js/attendance_check.js}"></script>
 
 	<script type="text/javascript" th:inline="javascript">
 		$(function() {
@@ -86,8 +89,8 @@
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
-		
 	</script>
+	
 	
 
 
