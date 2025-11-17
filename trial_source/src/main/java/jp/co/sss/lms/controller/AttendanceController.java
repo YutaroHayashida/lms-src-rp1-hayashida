@@ -46,9 +46,8 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-		
+		//Task25
 	    boolean hasUnenteredPast = studentAttendanceService.hasPastUnentered(loginUserDto);
-
 	    // true/false を画面に渡す
 	    model.addAttribute("hasUnenteredPast", hasUnenteredPast);
 		return "attendance/detail";
