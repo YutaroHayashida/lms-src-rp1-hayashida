@@ -65,11 +65,13 @@ public interface TStudentAttendanceMapper {
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
 	
-	//Task25
+	
 	/**
+	 * 
      * 指定された日付より過去で、勤怠入力が不完全な（開始または終了時間がNULL）日の件数を
      * 取得する
-     * * @param lmsUserId LMSユーザーID
+     * @author 林田悠太朗-Task.25
+     * @param lmsUserId LMSユーザーID
      * @param deleteFlg 削除フラグ
      * @param trainingDate 基準となる日付 (この日付より過去をチェック)
      * @return 過去の未入力件数

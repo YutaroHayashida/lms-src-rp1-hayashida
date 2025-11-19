@@ -86,7 +86,7 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 	
-	<!-- Task.25 -->
+	<!-- 林田悠太朗-Task.25 -->
 <select id="countPastDays" resultType="java.lang.Integer">
   SELECT
       COUNT(*)

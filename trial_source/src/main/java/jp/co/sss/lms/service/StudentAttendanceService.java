@@ -74,34 +74,6 @@ public class StudentAttendanceService {
 		return attendanceManagementDtoList;
 	}
 	
-    /**
-     * 現在より過去に未入力があるかをチェック
-     * @param loginUser ログインユーザ情報
-     * @return boolean（true=過去に未入力がある）
-     */
-    public boolean hasPastUnentered(LoginUserDto loginUser) {
-
-        // a. SimpleDateFormatを設定
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        // b. 現在日付を取得
-        Date today = new Date();
-        try {
-            today = sdf.parse(sdf.format(today));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // 1. 過去日の未入力数を取得
-        Integer count = tStudentAttendanceMapper.countPastDays(
-                loginUser.getLmsUserId(),
-                0,        // delete_flg
-                today     // 今日より過去
-        );
-
-        // 2. 0より大きい場合 true（ダイアログ表示させる）
-        return count > 0;
-    }
 
 	/**
 	 * 出退勤更新前のチェック
@@ -363,5 +335,36 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
+	
+	 /**
+     * 
+     * 現在より過去に未入力があるかをチェック
+     * @author 林田悠太朗-Task.25
+     * @param loginUser ログインユーザ情報
+     * @return boolean（true=過去に未入力がある）
+     */
+    public boolean hasPastUnentered(LoginUserDto loginUser) {
+
+        // a. SimpleDateFormatを設定
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // b. 現在日付を取得
+        Date today = new Date();
+        try {
+            today = sdf.parse(sdf.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // 1. 過去日の未入力数を取得
+        Integer count = tStudentAttendanceMapper.countPastDays(
+                loginUser.getLmsUserId(),
+                0,        // delete_flg
+                today     // 今日より過去
+        );
+
+        // 2. 0より大きい場合 true（ダイアログ表示させる）
+        return count > 0;
+    }
 
 }

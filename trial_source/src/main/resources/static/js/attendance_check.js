@@ -1,3 +1,5 @@
+
+//林田悠太朗-Task.25
 document.addEventListener("DOMContentLoaded", function () {
     const flag = document.getElementById("hasUnenteredPast")?.value;
 

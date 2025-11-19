@@ -32,7 +32,6 @@ public class AttendanceController {
 
 	/**
 	 * 勤怠管理画面 初期表示
-	 * 
 	 * @param lmsUserId
 	 * @param courseId
 	 * @param model
@@ -46,10 +45,10 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-		//Task25
-	    boolean hasUnenteredPast = studentAttendanceService.hasPastUnentered(loginUserDto);
-	    // true/false を画面に渡す
-	    model.addAttribute("hasUnenteredPast", hasUnenteredPast);
+		//林田悠太朗-Task25
+		boolean hasUnenteredPast = studentAttendanceService.hasPastUnentered(loginUserDto);
+		// true/false を画面に渡す
+		model.addAttribute("hasUnenteredPast", hasUnenteredPast);
 		return "attendance/detail";
 	}
 
