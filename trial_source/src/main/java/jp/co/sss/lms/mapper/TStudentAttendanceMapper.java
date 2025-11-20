@@ -76,8 +76,8 @@ public interface TStudentAttendanceMapper {
      * @param trainingDate 基準となる日付 (この日付より過去をチェック)
      * @return 過去の未入力件数
      */
-  Integer countPastDays(
+  Integer notEnterCount(
     	      @Param("lmsUserId") Integer lmsUserId,
-    	        @Param("deleteFlg") Integer deleteFlg,
+    	        @Param("deleteFlg") Short deleteFlg,
     	        @Param("trainingDate") Date trainingDate);
 }

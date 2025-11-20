@@ -87,7 +87,7 @@
 	</update>
 	
 	<!-- 林田悠太朗-Task.25 -->
-<select id="countPastDays" resultType="java.lang.Integer">
+<select id="notEnterCount" resultType="java.lang.Integer">
   SELECT
       COUNT(*)
     FROM
@@ -96,9 +96,10 @@
       lms_user_id = #{lmsUserId}
       AND delete_flg = #{deleteFlg}
       AND training_date &lt; #{trainingDate}
+      AND status != 1
       AND (
-        (training_start_time IS NULL OR training_start_time = '') OR
-        (training_end_time IS NULL OR training_end_time = '')
+        training_start_time = '' OR  training_end_time = '' OR
+        training_start_time IS NULL OR training_end_time IS NULL  
       )
 </select>
 	

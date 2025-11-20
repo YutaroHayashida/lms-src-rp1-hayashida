@@ -42,6 +42,7 @@ public class StudentAttendanceService {
 	private LoginUserUtil loginUserUtil;
 	@Autowired
 	private LoginUserDto loginUserDto;
+
 	@Autowired
 	private TStudentAttendanceMapper tStudentAttendanceMapper;
 
@@ -255,9 +256,23 @@ public class StudentAttendanceService {
 
 			attendanceForm.getAttendanceList().add(dailyAttendanceForm);
 		}
+		//時間プルダウン完了
+//		LinkedHashMap<String, String> trainingStartTimeHour = new LinkedHashMap<>();
+//		for (int h = 0; h < 24; h++) { // 0〜23時
+//		    String t = String.valueOf(h); // "0", "1", ..., "23"
+//		    trainingStartTimeHour.put(t, t); // key=value どちらも数字
+//		}
+//
+//		attendanceForm.setTrainingStartTimeHour(trainingStartTimeHour);
+		
+		// 0〜59 の分を文字列で作る
+
+
 
 		return attendanceForm;
 	}
+
+
 
 	/**
 	 * 勤怠登録・更新処理
@@ -345,10 +360,10 @@ public class StudentAttendanceService {
      */
     public boolean hasPastUnentered(LoginUserDto loginUser) {
 
-        // a. SimpleDateFormatを設定
+        // SimpleDateFormatを設定
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        // b. 現在日付を取得
+        // 現在日付を取得
         Date today = new Date();
         try {
             today = sdf.parse(sdf.format(today));
@@ -356,14 +371,15 @@ public class StudentAttendanceService {
             e.printStackTrace();
         }
 
-        // 1. 過去日の未入力数を取得
-        Integer count = tStudentAttendanceMapper.countPastDays(
+        // 過去日の未入力数を取得
+        Integer count = tStudentAttendanceMapper.notEnterCount(
                 loginUser.getLmsUserId(),
-                0,        // delete_flg
+                Constants.DB_FLG_FALSE,        // delete_flg
                 today     // 今日より過去
+                
         );
 
-        // 2. 0より大きい場合 true（ダイアログ表示させる）
+        // 0より大きい場合 true（ダイアログ表示させる）
         return count > 0;
     }
 
