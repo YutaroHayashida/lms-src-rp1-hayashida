@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -257,18 +258,29 @@ public class StudentAttendanceService {
 			attendanceForm.getAttendanceList().add(dailyAttendanceForm);
 		}
 		//時間プルダウン完了
-//		LinkedHashMap<String, String> trainingStartTimeHour = new LinkedHashMap<>();
-//		for (int h = 0; h < 24; h++) { // 0〜23時
-//		    String t = String.valueOf(h); // "0", "1", ..., "23"
-//		    trainingStartTimeHour.put(t, t); // key=value どちらも数字
-//		}
-//
-//		attendanceForm.setTrainingStartTimeHour(trainingStartTimeHour);
+		// 時プルダウン
+		LinkedHashMap<String, String> trainingStartTimeHour = new LinkedHashMap<>();
+		LinkedHashMap<String, String> trainingEndTimeHour = new LinkedHashMap<>();
+		for (int h = 0; h < 24; h++) {
+		    String t = String.valueOf(h);
+		    trainingStartTimeHour.put(t, t);
+		    trainingEndTimeHour.put(t, t);
+		}
+		attendanceForm.setTrainingStartTimeHour(trainingStartTimeHour);
+		attendanceForm.setTrainingEndTimeHour(trainingEndTimeHour);
+
+		// 分プルダウン
+		LinkedHashMap<String, String> trainingStartTimeMinute = new LinkedHashMap<>();
+		LinkedHashMap<String, String> trainingEndTimeMinute = new LinkedHashMap<>();
+		for (int m = 0; m < 60; m++) {
+		    String t = String.valueOf(m);
+		    trainingStartTimeMinute.put(t, t);
+		    trainingEndTimeMinute.put(t, t);
+		}
+		attendanceForm.setTrainingStartTimeMinute(trainingStartTimeMinute);
+		attendanceForm.setTrainingEndTimeMinute(trainingEndTimeMinute);
+
 		
-		// 0〜59 の分を文字列で作る
-
-
-
 		return attendanceForm;
 	}
 
