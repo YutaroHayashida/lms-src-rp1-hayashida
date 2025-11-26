@@ -77,11 +77,8 @@
 							<!--開始時間（分）-->
 							<td class="w70">
 							    <select th:name="|attendanceList[${stat.index}].trainingStartMinute|"
-							            class="form-control">
-							         一番上は空白 
-							        <option value=""></option>
-							
-							         0〜23 時 
+							            class="form-control">					        
+							        <option value=""></option>					      
 							        <option th:each="min : ${attendanceForm.trainingStartTimeMinute}"
 							                th:value="${min.key}"
 							                th:text="${min.value}"
@@ -93,11 +90,8 @@
                             <!--退勤時間（時）-->
 							<td class="w70">
 							    <select th:name="|attendanceList[${stat.index}].trainingEndTime|"
-							            class="form-control">
-							         一番上は空白 
+							            class="form-control">							          
 							        <option value=""></option>
-							
-							         0〜23 時 
 							        <option th:each="hour : ${attendanceForm.trainingEndTimeHour}"
 							                th:value="${hour.key}"
 							                th:text="${hour.value}"
@@ -110,10 +104,7 @@
 							<td class="w70">
 							    <select th:name="|attendanceList[${stat.index}].trainingEndMinute|"
 							            class="form-control">
-							         一番上は空白 
 							        <option value=""></option>
-							
-							         0〜23 時 
 							        <option th:each="min : ${attendanceForm.trainingEndTimeMinute}"
 							                th:value="${min.key}"
 							                th:text="${min.value}"

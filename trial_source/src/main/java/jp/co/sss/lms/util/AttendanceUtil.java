@@ -147,4 +147,38 @@ public class AttendanceUtil {
 		return false;
 	}
 
+	/**
+     * 開始時間（時）プルダウンの選択肢を取得
+     *
+     * @return 時刻（時）の選択肢マップ (0〜23)
+     */
+    public LinkedHashMap<Integer, String> getTrainingTimeHourOptions() {
+        LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+        map.put(null, ""); // 一番上は空白
+
+        for (int h = 0; h < 24; h++) {
+            // キーは Integer (h)、値は String に変換 (String.valueOf(h))
+            String displayValue = String.valueOf(h); 
+            map.put(h, displayValue);
+        }
+        return map;
+    }
+
+    /**
+     * 開始時間（分）プルダウンの選択肢を取得
+     *
+     * @return 時刻（分）の選択肢マップ (0〜59)
+     */
+    public LinkedHashMap<Integer, String> getTrainingTimeMinuteOptions() {
+        LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+        map.put(null, ""); // 一番上は空白
+
+        for (int m = 0; m < 60; m++) {
+            // キーは Integer (m)、値は String に変換
+            String displayValue = String.valueOf(m); 
+            map.put(m, displayValue);
+        }
+        return map;
+    }
+	
 }
