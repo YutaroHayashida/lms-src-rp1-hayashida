@@ -456,7 +456,6 @@ public class StudentAttendanceService {
                 loginUser.getLmsUserId(),
                 Constants.DB_FLG_FALSE,        // delete_flg
                 today     // 今日より過去
-                
         );
 
         // 0より大きい場合 true（ダイアログ表示させる）
